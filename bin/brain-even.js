@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import initBrainEven from '../src/cli-even.js';
+import playBrainEven from '../src/games/cli-even.js';
 
-initBrainEven();
+playBrainEven();
