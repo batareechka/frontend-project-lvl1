@@ -1,11 +1,14 @@
-import { MIN_INTEGER, MAX_INTEGER, MAX_ROUNDS_COUNT } from '../config.js';
 import {
   askQuestion,
   getAnswer,
   analyzeAnswer,
-  greetUser, finishGame,
+  initGame,
 } from '../index.js';
 import { generateRandomInteger, isEven } from '../helpers.js';
+
+const MIN_INTEGER = 0;
+const MAX_INTEGER = 100;
+const MAIN_RULE = 'Answer "yes" if the number is even, otherwise answer "no".';
 
 const playRound = () => {
   const randomInteger = generateRandomInteger(MIN_INTEGER, MAX_INTEGER);
@@ -20,21 +23,7 @@ const playRound = () => {
 };
 
 const playBrainEven = () => {
-  let correctAnswersCount = 0;
-
-  greetUser();
-
-  console.log('Answer "yes" if the number is even, otherwise answer "no".');
-
-  while (correctAnswersCount < MAX_ROUNDS_COUNT) {
-    if (playRound()) {
-      correctAnswersCount += 1;
-    } else {
-      correctAnswersCount = 0;
-      finishGame(false);
-    }
-  }
-  finishGame(true);
+  initGame(MAIN_RULE, playRound);
 };
 
 export default playBrainEven;
