@@ -1,4 +1,5 @@
 import readlineSync from 'readline-sync';
+import { MAX_ROUNDS_COUNT } from './config.js';
 
 let userName;
 
@@ -28,6 +29,24 @@ const finishGame = (result) => {
   }
 };
 
+const initGame = (gameRuleMessage, playGameRound) => {
+  let correctAnswersCount = 0;
+
+  greetUser();
+
+  console.log(gameRuleMessage);
+
+  while (correctAnswersCount < MAX_ROUNDS_COUNT) {
+    if (playGameRound()) {
+      correctAnswersCount += 1;
+    } else {
+      correctAnswersCount = 0;
+      console.log(`Let's try again, ${userName}!`);
+    }
+  }
+  console.log(`Congratulations, ${userName}!`);
+};
+
 export {
   getUserName,
   askQuestion,
@@ -35,4 +54,5 @@ export {
   analyzeAnswer,
   greetUser,
   finishGame,
+  initGame,
 };

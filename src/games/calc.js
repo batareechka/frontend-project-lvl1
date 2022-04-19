@@ -1,9 +1,12 @@
 import readlineSync from 'readline-sync';
-import { MIN_INTEGER, MAX_INTEGER, MAX_ROUNDS_COUNT } from '../config.js';
 import {
-  analyzeAnswer, askQuestion, greetUser, finishGame,
+  analyzeAnswer, askQuestion, initGame,
 } from '../index.js';
 import { generateRandomInteger } from '../helpers.js';
+
+const MIN_INTEGER = 0;
+const MAX_INTEGER = 50;
+const MAIN_RULE = 'What is the result of the expression?';
 
 const generateExpression = () => {
   const expressionObj = {};
@@ -46,21 +49,7 @@ const playRound = () => {
 };
 
 const playBrainCalc = () => {
-  let correctAnswersCount = 0;
-
-  greetUser();
-
-  console.log('What is the result of the expression?');
-
-  while (correctAnswersCount < MAX_ROUNDS_COUNT) {
-    if (playRound()) {
-      correctAnswersCount += 1;
-    } else {
-      correctAnswersCount = 0;
-      finishGame(false);
-    }
-  }
-  finishGame(true);
+  initGame(MAIN_RULE, playRound);
 };
 
 export default playBrainCalc;
