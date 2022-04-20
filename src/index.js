@@ -34,10 +34,12 @@ const initGame = (gameRuleMessage, playGameRound) => {
       correctAnswersCount += 1;
     } else {
       correctAnswersCount = 0;
-      console.log(`Let's try again, ${userName}!`);
+      break;
     }
   }
-  console.log(`Congratulations, ${userName}!`);
+
+  const message = correctAnswersCount === MAX_ROUNDS_COUNT ? `Congratulations, ${userName}!` : `Let's try again, ${userName}!`;
+  console.log(message);
 };
 
 export {

@@ -20,6 +20,8 @@ const findGcd = (num1, num2) => {
 };
 
 const isPrime = (num) => {
+  if (num === 1) return false;
+
   for (let n = Math.floor(num / 2); n > 1; n -= 1) {
     if (num % n === 0) return false;
   }
