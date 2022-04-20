@@ -19,8 +19,16 @@ const findGcd = (num1, num2) => {
   return a + b;
 };
 
+const isPrime = (num) => {
+  for (let n = Math.floor(num / 2); n > 1; n -= 1) {
+    if (num % n === 0) return false;
+  }
+  return true;
+};
+
 export {
   generateRandomInteger,
   isEven,
   findGcd,
+  isPrime,
 };
