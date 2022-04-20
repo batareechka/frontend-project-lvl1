@@ -1,9 +1,0 @@
-const MIN_INTEGER = 0;
-const MAX_INTEGER = 50;
-const MAX_ROUNDS_COUNT = 3;
-
-export {
-  MIN_INTEGER,
-  MAX_INTEGER,
-  MAX_ROUNDS_COUNT,
-};
