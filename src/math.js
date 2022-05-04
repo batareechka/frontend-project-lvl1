@@ -1,11 +1,11 @@
-const generateRandomInteger = (min, max) => {
+export const generateRandomInteger = (min, max) => {
   const rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
 };
 
-const isEven = (number) => number % 2 === 0;
+export const isEven = (number) => number % 2 === 0;
 
-const findGcd = (num1, num2) => {
+export const findGcd = (num1, num2) => {
   let a = num1;
   let b = num2;
 
@@ -19,7 +19,7 @@ const findGcd = (num1, num2) => {
   return a + b;
 };
 
-const isPrime = (num) => {
+export const isPrime = (num) => {
   if (num === 1) return false;
 
   for (let n = Math.floor(num / 2); n > 1; n -= 1) {
@@ -28,9 +28,10 @@ const isPrime = (num) => {
   return true;
 };
 
-export {
-  generateRandomInteger,
-  isEven,
-  findGcd,
-  isPrime,
+export const generateProgression = (a1, d, n) => {
+  const progression = [];
+  for (let i = 1; i <= n; i += 1) {
+    progression[i - 1] = a1 + d * (i - 1);
+  }
+  return progression;
 };

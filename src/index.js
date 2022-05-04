@@ -1,52 +1,24 @@
-import readlineSync from 'readline-sync';
+import { greetUser, getAnswer } from './cli.js';
 
 const MAX_ROUNDS_COUNT = 3;
 
-let userName;
+const runEngine = (description, generateRound) => {
+  const userName = greetUser();
+  console.log(description);
 
-const getUserName = () => readlineSync.question('May I have your name? ');
-
-const askQuestion = (str) => `Question: ${str}`;
-
-const getAnswer = () => readlineSync.question('Your answer: ');
-
-const analyzeAnswer = (userAnswer, expectedAnswer) => (userAnswer === expectedAnswer ? 'Correct!' : `'${userAnswer}' is wrong answer ;(. Correct answer was '${expectedAnswer}'`);
-
-const greetUser = () => {
-  console.log('Welcome to the Brain Games!');
-
-  userName = getUserName();
-
-  console.log(`Hello, ${userName}!`);
-
-  return userName;
-};
-
-const initGame = (gameRuleMessage, playGameRound) => {
-  let correctAnswersCount = 0;
-
-  greetUser();
-
-  console.log(gameRuleMessage);
-
-  while (correctAnswersCount < MAX_ROUNDS_COUNT) {
-    if (playGameRound()) {
-      correctAnswersCount += 1;
+  for (let round = 0; round < MAX_ROUNDS_COUNT; round += 1) {
+    const [question, answer] = generateRound();
+    console.log(`Question: ${question}`);
+    const userAnswer = getAnswer();
+    if (userAnswer === answer) {
+      console.log('Correct!');
     } else {
-      correctAnswersCount = 0;
-      break;
+      console.log(`'${userAnswer}' is wrong answer ;(. Correct answer was '${answer}'`);
+      console.log(`Let's try again, ${userName}!`);
+      return;
     }
   }
-
-  const message = correctAnswersCount === MAX_ROUNDS_COUNT ? `Congratulations, ${userName}!` : `Let's try again, ${userName}!`;
-  console.log(message);
+  console.log(`Congratulations, ${userName}!`);
 };
 
-export {
-  getUserName,
-  askQuestion,
-  getAnswer,
-  analyzeAnswer,
-  greetUser,
-  initGame,
-};
+export default runEngine;
