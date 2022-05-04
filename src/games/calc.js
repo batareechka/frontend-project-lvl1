@@ -1,55 +1,46 @@
-import readlineSync from 'readline-sync';
-import {
-  analyzeAnswer, askQuestion, initGame,
-} from '../index.js';
-import { generateRandomInteger } from '../helpers.js';
+import runEngine from '../index.js';
+import { generateRandomInteger } from '../math.js';
 
 const MIN_INTEGER = 0;
 const MAX_INTEGER = 50;
-const MAIN_RULE = 'What is the result of the expression?';
+const description = 'What is the result of the expression?';
 
-const generateExpression = () => {
-  const expressionObj = {};
-  const mathOperations = ['+', '-', '*'];
-  const operand1 = generateRandomInteger(MIN_INTEGER, MAX_INTEGER);
-  const operand2 = generateRandomInteger(MIN_INTEGER, MAX_INTEGER);
-  const operationIndex = generateRandomInteger(0, mathOperations.length - 1);
-  expressionObj.question = `${operand1} ${mathOperations[operationIndex]} ${operand2}`;
+const mathOperations = ['+', '-', '*'];
 
-  switch (mathOperations[operationIndex]) {
+const calcMathExpression = (operand1, operand2, operation) => {
+  let result;
+  switch (operation) {
     case '+':
-      expressionObj.result = operand1 + operand2;
+      result = operand1 + operand2;
       break;
 
     case '-':
-      expressionObj.result = operand1 - operand2;
+      result = operand1 - operand2;
       break;
 
     case '*':
-      expressionObj.result = operand1 * operand2;
+      result = operand1 * operand2;
       break;
 
     default:
-      expressionObj.result = 'Result can not be calculated';
+      result = null;
   }
-
-  return expressionObj;
+  return result;
 };
 
-const playRound = () => {
-  const expression = generateExpression();
-  console.log(askQuestion(expression.question));
+const generateRound = () => {
+  const operand1 = generateRandomInteger(MIN_INTEGER, MAX_INTEGER);
+  const operand2 = generateRandomInteger(MIN_INTEGER, MAX_INTEGER);
+  const operationIndex = generateRandomInteger(0, mathOperations.length - 1);
+  const operation = mathOperations[operationIndex];
+  const question = `${operand1} ${operation} ${operand2}`;
+  const answer = String(calcMathExpression(operand1, operand2, operation));
 
-  const userAnswer = Number(readlineSync.question('Your answer: '));
-  const expectedAnswer = expression.result;
-  const feedback = analyzeAnswer(userAnswer, expectedAnswer);
-  console.log(feedback);
-
-  return userAnswer === expectedAnswer;
+  return [question, answer];
 };
 
 const playBrainCalc = () => {
-  initGame(MAIN_RULE, playRound);
+  runEngine(description, generateRound);
 };
 
 export default playBrainCalc;

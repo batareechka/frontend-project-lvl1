@@ -1,26 +1,18 @@
-import {
-  analyzeAnswer, askQuestion, getAnswer, initGame,
-} from '../index.js';
-import { generateRandomInteger, isPrime } from '../helpers.js';
+import runEngine from '../index.js';
+import { generateRandomInteger, isPrime } from '../math.js';
 
 const MIN_INTEGER = 1;
 const MAX_INTEGER = 50;
-const MAIN_RULE = 'Answer "yes" if given number is prime. Otherwise answer "no".';
+const description = 'Answer "yes" if given number is prime. Otherwise answer "no".';
 
-const playRound = () => {
-  const randomInteger = generateRandomInteger(MIN_INTEGER, MAX_INTEGER);
-  console.log(askQuestion(randomInteger));
-
-  const userAnswer = getAnswer();
-  const expectedAnswer = isPrime(randomInteger) ? 'yes' : 'no';
-  const feedback = analyzeAnswer(userAnswer, expectedAnswer);
-  console.log(feedback);
-
-  return userAnswer === expectedAnswer;
+const generateRound = () => {
+  const question = generateRandomInteger(MIN_INTEGER, MAX_INTEGER);
+  const answer = isPrime(question) ? 'yes' : 'no';
+  return [question, answer];
 };
 
 const playBrainPrime = () => {
-  initGame(MAIN_RULE, playRound);
+  runEngine(description, generateRound);
 };
 
 export default playBrainPrime;
