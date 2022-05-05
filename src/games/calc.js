@@ -8,24 +8,19 @@ const description = 'What is the result of the expression?';
 const mathOperations = ['+', '-', '*'];
 
 const calcMathExpression = (operand1, operand2, operation) => {
-  let result;
   switch (operation) {
     case '+':
-      result = operand1 + operand2;
-      break;
+      return operand1 + operand2;
 
     case '-':
-      result = operand1 - operand2;
-      break;
+      return operand1 - operand2;
 
     case '*':
-      result = operand1 * operand2;
-      break;
+      return operand1 * operand2;
 
     default:
-      result = null;
+      return null;
   }
-  return result;
 };
 
 const generateRound = () => {
